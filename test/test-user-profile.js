@@ -17,7 +17,7 @@ describe('Get user profile info', () => {
         });
 
         let engine = nock('https://api.kik.com')
-            .get('/api/v1/user/testuser1')
+            .get('/v1/user/testuser1')
             .reply(200, {
                 firstName: 'Gwendolyn',
                 lastName: 'Ferguson',
@@ -54,12 +54,12 @@ describe('Get user profile info', () => {
         });
 
         let engine = nock('https://api.kik.com')
-            .get('/api/v1/user/testuser1')
+            .get('/v1/user/testuser1')
             .reply(200, {
                 firstName: 'Test',
                 lastName: 'Guy',
             })
-            .get('/api/v1/user/testuser2')
+            .get('/v1/user/testuser2')
             .reply(200, {
                 firstName: 'Test2',
                 lastName: 'Guy',
@@ -94,7 +94,7 @@ describe('Get user profile info', () => {
         });
 
         let engine = nock('https://api.kik.com')
-            .get('/api/v1/user/testuser12')
+            .get('/v1/user/testuser12')
             .reply(404);
 
         bot.getUserProfile('testuser12')

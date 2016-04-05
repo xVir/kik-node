@@ -15,7 +15,7 @@ const BOT_API_KEY = '2042cd8e-638c-4183-aef4-d4bef6f01981';
 
 let messageChecker;
 let engine = nock('https://api.kik.com')
-    .post('/api/v1/message')
+    .post('/v1/message')
     .reply(200, (err, body, cb) => {
         let currentMessageChecker = messageChecker;
 
@@ -25,7 +25,7 @@ let engine = nock('https://api.kik.com')
             currentMessageChecker(err, body, cb);
         }
     })
-    .post('/api/v1/broadcast')
+    .post('/v1/broadcast')
     .reply(200, (err, body, cb) => {
         let currentMessageChecker = messageChecker;
 

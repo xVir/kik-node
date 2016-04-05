@@ -127,13 +127,13 @@ bot.onTextMessage((message) => {
 });
 ```
 
-[travis-image]: https://travis-ci.com/kikinteractive/kik-node.svg?token=iHkQJ3F1VxtmX1aAG1ky&branch=master
-[travis-url]: https://travis-ci.com/kikinteractive/kik-node
+[travis-image]: https://travis-ci.org/kikinteractive/kik-node.svg?branch=master
+[travis-url]: https://travis-ci.org/kikinteractive/kik-node
 
 [dev-kik-url]: https://dev.kik.com/
 [kik-url]: https://kik.com/
 
-[coveralls-image]: https://coveralls.io/repos/github/kikinteractive/kik-node/badge.svg?branch=master&t=4MPOax
+[coveralls-image]: https://coveralls.io/repos/github/kikinteractive/kik-node/badge.svg?branch=master
 [coveralls-url]: https://coveralls.io/github/kikinteractive/kik-node?branch=master
 
 [npm-image]: https://img.shields.io/npm/v/@kikinteractive/kik.svg?style=flat-square
@@ -144,6 +144,7 @@ bot.onTextMessage((message) => {
 ## API Documentation
 
 <a name="Bot"></a>
+
 ## Bot
 Bot
  This is a test
@@ -171,6 +172,7 @@ Bot
     * [.incoming()](#Bot+incoming)
 
 <a name="new_Bot_new"></a>
+
 ### new Bot()
 
 | Param | Type | Description |
@@ -185,6 +187,7 @@ Bot
 | [options.receiveIsTyping] | <code>boolean</code> |  |
 
 <a name="Bot+use"></a>
+
 ### bot.use(handler)
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
@@ -193,6 +196,7 @@ Bot
 | handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
 
 <a name="Bot+onTextMessage"></a>
+
 ### bot.onTextMessage([text], handler)
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
@@ -230,6 +234,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
  });
 ```
 <a name="Bot+onLinkMessage"></a>
+
 ### bot.onLinkMessage(handler)
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
@@ -238,6 +243,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 | handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
 
 <a name="Bot+onPictureMessage"></a>
+
 ### bot.onPictureMessage(handler)
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
@@ -246,6 +252,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 | handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
 
 <a name="Bot+onVideoMessage"></a>
+
 ### bot.onVideoMessage(handler)
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
@@ -254,6 +261,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 | handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
 
 <a name="Bot+onStartChattingMessage"></a>
+
 ### bot.onStartChattingMessage(handler)
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
@@ -262,6 +270,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 | handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
 
 <a name="Bot+onScanDataMessage"></a>
+
 ### bot.onScanDataMessage(handler)
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
@@ -270,6 +279,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 | handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
 
 <a name="Bot+onStickerMessage"></a>
+
 ### bot.onStickerMessage(handler)
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
@@ -278,6 +288,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 | handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
 
 <a name="Bot+onIsTypingMessage"></a>
+
 ### bot.onIsTypingMessage(handler)
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
@@ -286,6 +297,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 | handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
 
 <a name="Bot+onDeliveryReceiptMessage"></a>
+
 ### bot.onDeliveryReceiptMessage(handler)
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
@@ -294,6 +306,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 | handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
 
 <a name="Bot+onReadReceiptMessage"></a>
+
 ### bot.onReadReceiptMessage(handler)
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
@@ -302,6 +315,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 | handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
 
 <a name="Bot+getKikCodeUrl"></a>
+
 ### bot.getKikCodeUrl() ⇒ <code>promise.&lt;string&gt;</code>
 Creates a Kik Code with the intended options and returns the
  URL of the Kik Code image. If the options specify a data Kik Code
@@ -318,9 +332,11 @@ Creates a Kik Code with the intended options and returns the
 | [options.color] | <code>number</code> | The color which the user will see after scanning.                                  See {KikCode.Colors} |
 
 <a name="Bot+getUserProfile"></a>
+
 ### bot.getUserProfile() ⇒ <code>[promise.&lt;UserProfile&gt;](#UserProfile)</code>
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 <a name="Bot+broadcast"></a>
+
 ### bot.broadcast(messages, recipients)
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
@@ -330,6 +346,7 @@ Creates a Kik Code with the intended options and returns the
 | recipients | <code>array</code> | 
 
 <a name="Bot+send"></a>
+
 ### bot.send(messages, recipient, [chatId])
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
@@ -340,6 +357,7 @@ Creates a Kik Code with the intended options and returns the
 | [chatId] | <code>string</code> | 
 
 <a name="Bot+incoming"></a>
+
 ### bot.incoming()
 Handles the incoming requests for messages
  configuration.
@@ -347,6 +365,7 @@ Handles the incoming requests for messages
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
 <a name="IncomingMessage"></a>
+
 ## IncomingMessage
 IncomingMessage
  This is a test
@@ -361,6 +380,7 @@ IncomingMessage
     * [.ignore()](#IncomingMessage+ignore)
 
 <a name="IncomingMessage+reply"></a>
+
 ### incomingMessage.reply(messages) ⇒ <code>promise.&lt;object&gt;</code>
 **Kind**: instance method of <code>[IncomingMessage](#IncomingMessage)</code>  
 
@@ -369,20 +389,25 @@ IncomingMessage
 | messages | <code>[Message](#Message)</code> &#124; <code>[array.&lt;Message&gt;](#Message)</code> | 
 
 <a name="IncomingMessage+markRead"></a>
+
 ### incomingMessage.markRead() ⇒ <code>promise.&lt;object&gt;</code>
 **Kind**: instance method of <code>[IncomingMessage](#IncomingMessage)</code>  
 <a name="IncomingMessage+startTyping"></a>
+
 ### incomingMessage.startTyping() ⇒ <code>promise.&lt;object&gt;</code>
 **Kind**: instance method of <code>[IncomingMessage](#IncomingMessage)</code>  
 <a name="IncomingMessage+stopTyping"></a>
+
 ### incomingMessage.stopTyping() ⇒ <code>promise.&lt;object&gt;</code>
 **Kind**: instance method of <code>[IncomingMessage](#IncomingMessage)</code>  
 <a name="IncomingMessage+ignore"></a>
+
 ### incomingMessage.ignore()
 **Kind**: instance method of <code>[IncomingMessage](#IncomingMessage)</code>  
 
 
 <a name="UserProfile"></a>
+
 ## UserProfile
 UserProfile
  See https://dev.kik.com/#/docs/messaging#user-profiles
@@ -398,25 +423,32 @@ UserProfile
     * [.profilePicLastModified](#UserProfile+profilePicLastModified) ⇒ <code>number</code>
 
 <a name="UserProfile+displayName"></a>
+
 ### userProfile.displayName ⇒ <code>string</code>
 **Kind**: instance property of <code>[UserProfile](#UserProfile)</code>  
 <a name="UserProfile+username"></a>
+
 ### userProfile.username ⇒ <code>string</code>
 **Kind**: instance property of <code>[UserProfile](#UserProfile)</code>  
 <a name="UserProfile+firstName"></a>
+
 ### userProfile.firstName ⇒ <code>string</code>
 **Kind**: instance property of <code>[UserProfile](#UserProfile)</code>  
 <a name="UserProfile+lastName"></a>
+
 ### userProfile.lastName ⇒ <code>string</code>
 **Kind**: instance property of <code>[UserProfile](#UserProfile)</code>  
 <a name="UserProfile+profilePicUrl"></a>
+
 ### userProfile.profilePicUrl ⇒ <code>string</code>
 **Kind**: instance property of <code>[UserProfile](#UserProfile)</code>  
 <a name="UserProfile+profilePicLastModified"></a>
+
 ### userProfile.profilePicLastModified ⇒ <code>number</code>
 **Kind**: instance property of <code>[UserProfile](#UserProfile)</code>  
 
 <a name="Message"></a>
+
 ## Message
 Message
 This is a test
@@ -496,212 +528,254 @@ This is a test
         * [.fromJSON(json)](#Message.fromJSON) ⇒ <code>[Message](#Message)</code>
 
 <a name="Message+from"></a>
+
 ### message.from ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#receiving-messages
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+id"></a>
+
 ### message.id ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#receiving-messages
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+chatId"></a>
+
 ### message.chatId ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#receiving-messages
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+messageIds"></a>
+
 ### message.messageIds ⇒ <code>array</code>
 See https://dev.kik.com/#/docs/messaging#receipts
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+readReceiptRequested"></a>
+
 ### message.readReceiptRequested ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#receipts
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+stickerPackId"></a>
+
 ### message.stickerPackId ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#sticker
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+scanData"></a>
+
 ### message.scanData ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#kik-codes-api
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+stickerUrl"></a>
+
 ### message.stickerUrl ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#sticker
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+timestamp"></a>
+
 ### message.timestamp ⇒ <code>number</code>
 See https://dev.kik.com/#/docs/messaging#common-fields
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+type"></a>
+
 ### message.type ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#message-formats
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+kikJsData"></a>
+
 ### message.kikJsData ⇒ <code>object</code>
 See https://dev.kik.com/#/docs/messaging#link
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+picUrl"></a>
+
 ### message.picUrl ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#link
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+noForward"></a>
+
 ### message.noForward ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#link
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+isTyping"></a>
+
 ### message.isTyping ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#is-typing
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+body"></a>
+
 ### message.body ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#text
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+text"></a>
+
 ### message.text ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#link
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+title"></a>
+
 ### message.title ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#link
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+url"></a>
+
 ### message.url ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#link
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+videoUrl"></a>
+
 ### message.videoUrl ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#video
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+delay"></a>
+
 ### message.delay ⇒ <code>number</code>
 See https://dev.kik.com/#/docs/messaging#common-fields
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+typeTime"></a>
+
 ### message.typeTime ⇒ <code>number</code>
 See https://dev.kik.com/#/docs/messaging#text
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+attributionName"></a>
+
 ### message.attributionName ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#attribution
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+attributionIcon"></a>
+
 ### message.attributionIcon ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#attribution
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+loop"></a>
+
 ### message.loop ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#video
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+muted"></a>
+
 ### message.muted ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#video
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+autoplay"></a>
+
 ### message.autoplay ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#video
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+noSave"></a>
+
 ### message.noSave ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#video
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+participants"></a>
+
 ### message.participants ⇒ <code>array</code>
 See https://dev.kik.com/#/docs/messaging#participants
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+mention"></a>
+
 ### message.mention ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#mention
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+isTextMessage"></a>
+
 ### message.isTextMessage() ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#text
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
 <a name="Message+isLinkMessage"></a>
+
 ### message.isLinkMessage() ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#link
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
 <a name="Message+isPictureMessage"></a>
+
 ### message.isPictureMessage() ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#picture
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
 <a name="Message+isVideoMessage"></a>
+
 ### message.isVideoMessage() ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#video
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
 <a name="Message+isStartChattingMessage"></a>
+
 ### message.isStartChattingMessage() ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#start-chatting
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
 <a name="Message+isScanDataMessage"></a>
+
 ### message.isScanDataMessage() ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#scan-data
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
 <a name="Message+isStickerMessage"></a>
+
 ### message.isStickerMessage() ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#sticker
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
 <a name="Message+isIsTypingMessage"></a>
+
 ### message.isIsTypingMessage() ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#is-typing
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
 <a name="Message+isDeliveryReceiptMessage"></a>
+
 ### message.isDeliveryReceiptMessage() ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#receipts
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
 <a name="Message+isReadReceiptMessage"></a>
+
 ### message.isReadReceiptMessage() ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#receipts
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
 <a name="Message+isMention"></a>
+
 ### message.isMention() ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#mentions
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
 <a name="Message+toJSON"></a>
+
 ### message.toJSON() ⇒ <code>object</code>
 Constructs a JSON payload ready to be sent to the
  bot messaging API
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
 <a name="Message+addTextResponse"></a>
+
 ### message.addTextResponse(text) ⇒ <code>[Message](#Message)</code>
 See https://dev.kik.com/#/docs/messaging#keyboards
 
@@ -712,6 +786,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | text | <code>string</code> | 
 
 <a name="Message+addResponseKeyboard"></a>
+
 ### message.addResponseKeyboard(suggestions, [isHidden], [user]) ⇒ <code>[Message](#Message)</code>
 See https://dev.kik.com/#/docs/messaging#keyboards
 
@@ -724,6 +799,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | [user] | <code>string</code> | 
 
 <a name="Message+setKikJsData"></a>
+
 ### message.setKikJsData(kikJsData) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -732,6 +808,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | kikJsData | <code>object</code> | 
 
 <a name="Message+setPicUrl"></a>
+
 ### message.setPicUrl(picUrl) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -740,6 +817,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | picUrl | <code>string</code> | 
 
 <a name="Message+setNoForward"></a>
+
 ### message.setNoForward(noForward) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -748,6 +826,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | noForward | <code>boolean</code> | 
 
 <a name="Message+setIsTyping"></a>
+
 ### message.setIsTyping(isTyping) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -756,6 +835,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | isTyping | <code>boolean</code> | 
 
 <a name="Message+setMessageIds"></a>
+
 ### message.setMessageIds(messageIds) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -764,6 +844,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | messageIds | <code>array</code> | 
 
 <a name="Message+setBody"></a>
+
 ### message.setBody(body) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -772,6 +853,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | body | <code>string</code> | 
 
 <a name="Message+setText"></a>
+
 ### message.setText(text) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -780,6 +862,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | text | <code>string</code> | 
 
 <a name="Message+setTitle"></a>
+
 ### message.setTitle(title) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -788,6 +871,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | title | <code>string</code> | 
 
 <a name="Message+setUrl"></a>
+
 ### message.setUrl(url) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -796,6 +880,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | url | <code>string</code> | 
 
 <a name="Message+setVideoUrl"></a>
+
 ### message.setVideoUrl(videoUrl) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -804,6 +889,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | videoUrl | <code>string</code> | 
 
 <a name="Message+setDelay"></a>
+
 ### message.setDelay(delay) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -812,6 +898,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | delay | <code>number</code> | 
 
 <a name="Message+setTypeTime"></a>
+
 ### message.setTypeTime(typeTime) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -820,6 +907,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | typeTime | <code>number</code> | 
 
 <a name="Message+setAttributionName"></a>
+
 ### message.setAttributionName(attributionName) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -828,6 +916,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | attributionName | <code>string</code> | 
 
 <a name="Message+setAttributionIcon"></a>
+
 ### message.setAttributionIcon(attributionIcon) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -836,6 +925,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | attributionIcon | <code>string</code> | 
 
 <a name="Message+setLoop"></a>
+
 ### message.setLoop(loop) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -844,6 +934,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | loop | <code>boolean</code> | 
 
 <a name="Message+setMuted"></a>
+
 ### message.setMuted(muted) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -852,6 +943,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | muted | <code>boolean</code> | 
 
 <a name="Message+setAutoplay"></a>
+
 ### message.setAutoplay(autoplay) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -860,6 +952,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | autoplay | <code>boolean</code> | 
 
 <a name="Message+setNoSave"></a>
+
 ### message.setNoSave(noSave) ⇒ <code>[Message](#Message)</code>
 **Kind**: instance method of <code>[Message](#Message)</code>  
 
@@ -868,36 +961,43 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | noSave | <code>boolean</code> | 
 
 <a name="Message.text"></a>
+
 ### Message.text() ⇒ <code>[Message](#Message)</code>
 See https://dev.kik.com/#/docs/messaging#text
 
 **Kind**: static method of <code>[Message](#Message)</code>  
 <a name="Message.link"></a>
+
 ### Message.link() ⇒ <code>[Message](#Message)</code>
 See https://dev.kik.com/#/docs/messaging#link
 
 **Kind**: static method of <code>[Message](#Message)</code>  
 <a name="Message.picture"></a>
+
 ### Message.picture() ⇒ <code>[Message](#Message)</code>
 See https://dev.kik.com/#/docs/messaging#picture
 
 **Kind**: static method of <code>[Message](#Message)</code>  
 <a name="Message.video"></a>
+
 ### Message.video() ⇒ <code>[Message](#Message)</code>
 See https://dev.kik.com/#/docs/messaging#video
 
 **Kind**: static method of <code>[Message](#Message)</code>  
 <a name="Message.isTyping"></a>
+
 ### Message.isTyping() ⇒ <code>[Message](#Message)</code>
 See https://dev.kik.com/#/docs/messaging#is-typing
 
 **Kind**: static method of <code>[Message](#Message)</code>  
 <a name="Message.readReceipt"></a>
+
 ### Message.readReceipt() ⇒ <code>[Message](#Message)</code>
 See https://dev.kik.com/#/docs/messaging#receipts
 
 **Kind**: static method of <code>[Message](#Message)</code>  
 <a name="Message.fromJSON"></a>
+
 ### Message.fromJSON(json) ⇒ <code>[Message](#Message)</code>
 Constructs a new {Message} object from a JSON-encoded payload
  See https://dev.kik.com/#/docs
@@ -910,9 +1010,11 @@ Constructs a new {Message} object from a JSON-encoded payload
 
 
 <a name="KikCode"></a>
+
 ## KikCode
 **Kind**: global class  
 <a name="KikCode.Colors"></a>
+
 ### KikCode.Colors : <code>enum</code>
 KikCode.Colors
 

@@ -426,7 +426,7 @@ class Bot {
         if (!options.data) {
             result = API.usernameScanCode(this.username, options);
         } else {
-            result = API.dataScanCode(this.username, options);
+            result = API.dataScanCode(this.apiDomain, this.username, options);
         }
 
         return result.then((response) => response.url);
