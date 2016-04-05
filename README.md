@@ -29,8 +29,9 @@ Creating a basic Kik bot is simple:
 
 1. Import `@kikinteractive/kik`
 2. Create a bot with the username and API key you got from https://dev.kik.com/
-3. Add the bot as middleware to your server with `bot.incoming()`
-4. Start your web server
+3. Configure your bot as described in the [documentation][dev-config-kik-url]
+4. Add the bot as middleware to your server with `bot.incoming()`
+5. Start your web server
 
 You can use any node-style web server to host your Kik bot. Add handlers to your bot by calling `bot.onTextMessage(...)` and get notified whenever a user messages you. Take action on the messages as they come in and call `message.reply(...)` to respond to the message within the chat the message was sent from.
 
@@ -131,6 +132,7 @@ bot.onTextMessage((message) => {
 [travis-url]: https://travis-ci.org/kikinteractive/kik-node
 
 [dev-kik-url]: https://dev.kik.com/
+[dev-config-kik-url]: https://dev.kik.com/#/docs/messaging#configuration
 [kik-url]: https://kik.com/
 
 [coveralls-image]: https://coveralls.io/repos/github/kikinteractive/kik-node/badge.svg?branch=master
