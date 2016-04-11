@@ -50,8 +50,10 @@ let Bot  = require('@kikinteractive/kik');
 let bot = new Bot({
     username: 'echo.bot',
     apiKey: '7b939d69-e840-4d22-aab8-4188c2198f8a',
-    baseUrl: 'kik-echobot.ngrok.io'
+    baseUrl: 'https://kik-echobot.ngrok.io/'
 });
+
+bot.updateBotConfiguration();
 
 bot.onTextMessage((message) => {
     message.reply(message.body);
