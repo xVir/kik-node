@@ -1021,11 +1021,14 @@ Constructs a new {Message} object from a JSON-encoded payload
 <a name="KikCode"></a>
 
 ## KikCode
+See https://dev.kik.com/#/docs/messaging#kik-codes-api
+
 **Kind**: global class  
+
 <a name="KikCode.Colors"></a>
 
 ### KikCode.Colors : <code>enum</code>
-KikCode.Colors
+See https://dev.kik.com/#/docs/messaging#kik-code-colors
 
 **Kind**: static enum property of <code>[KikCode](#KikCode)</code>  
 **Properties**
