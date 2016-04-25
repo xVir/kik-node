@@ -1,3 +1,5 @@
+# Kik Node API
+
 [![NPM Version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
 
 ## Getting Started
@@ -145,13 +147,12 @@ bot.onTextMessage((message) => {
 
 [stackoverflow-url]: http://stackoverflow.com/questions/tagged/kik
 
-## API Documentation
+# API Documentation
 
 <a name="Bot"></a>
 
 ## Bot
-Bot
- This is a test
+Parses user messages sent from Kik's server. Use the [.incoming()](#Bot+incoming) method to return the middleware in a form of `function (req, res, next) {}`. The middleware will automatically decode the request, and call the appropriate `on` functions based on the content type. Additional middleware can be used by calling the [.use(handler)](#Bot+use) method.
 
 **Kind**: global class  
 **See**: https://bots.kik.com  
@@ -159,6 +160,7 @@ Bot
 * [Bot](#Bot)
     * [new Bot()](#new_Bot_new)
     * [.use(handler)](#Bot+use)
+    * [.updateBotConfiguration()](#Bot+updateBotConfiguration)
     * [.onTextMessage([text], handler)](#Bot+onTextMessage)
     * [.onLinkMessage(handler)](#Bot+onLinkMessage)
     * [.onPictureMessage(handler)](#Bot+onPictureMessage)
@@ -197,7 +199,12 @@ Bot
 
 | Param | Type |
 | --- | --- |
-| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
+
+<a name="Bot+updateBotConfiguration"></a>
+
+### bot.updateBotConfiguration()
+**Kind**: instance method of <code>[Bot](#Bot)</code>  
 
 <a name="Bot+onTextMessage"></a>
 
@@ -206,8 +213,8 @@ Bot
 
 | Param | Type |
 | --- | --- |
-| [text] | <code>string</code> &#124; <code>regexp</code> | 
-| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
+| [text] | <code>string</code> &#124; <code>regexp</code> |
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
 
 **Example**  
 ```js
@@ -216,7 +223,7 @@ bot.onTextMessage((incoming, bot) => {
      // from being called for this message
      incoming.reply(`Hi I'm ${bot.username}`);
  });
- 
+
 ```
 **Example**  
 ```js
@@ -229,7 +236,7 @@ bot.onTextMessage((incoming, next) => {
 
      // say hello...
  });
- 
+
 ```
 **Example**  
 ```js
@@ -244,7 +251,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 
 | Param | Type |
 | --- | --- |
-| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
 
 <a name="Bot+onPictureMessage"></a>
 
@@ -253,7 +260,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 
 | Param | Type |
 | --- | --- |
-| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
 
 <a name="Bot+onVideoMessage"></a>
 
@@ -262,7 +269,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 
 | Param | Type |
 | --- | --- |
-| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
 
 <a name="Bot+onStartChattingMessage"></a>
 
@@ -271,7 +278,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 
 | Param | Type |
 | --- | --- |
-| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
 
 <a name="Bot+onScanDataMessage"></a>
 
@@ -280,7 +287,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 
 | Param | Type |
 | --- | --- |
-| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
 
 <a name="Bot+onStickerMessage"></a>
 
@@ -289,7 +296,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 
 | Param | Type |
 | --- | --- |
-| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
 
 <a name="Bot+onIsTypingMessage"></a>
 
@@ -298,7 +305,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 
 | Param | Type |
 | --- | --- |
-| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
 
 <a name="Bot+onDeliveryReceiptMessage"></a>
 
@@ -307,7 +314,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 
 | Param | Type |
 | --- | --- |
-| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
 
 <a name="Bot+onReadReceiptMessage"></a>
 
@@ -316,7 +323,7 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 
 | Param | Type |
 | --- | --- |
-| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> | 
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
 
 <a name="Bot+getKikCodeUrl"></a>
 
@@ -329,16 +336,17 @@ Creates a Kik Code with the intended options and returns the
 
 | Param | Type | Description |
 | --- | --- | --- |
-| [options.data] | <code>string</code> &#124; <code>object</code> | The data to be sent back to this bot after                                        the user scans |
+| [options.data] | <code>string</code> &#124; <code>object</code> | The data to be sent back to this bot after the user scans |
 | [options.width] | <code>number</code> | Width of the Kik code in the PNG image |
 | [options.height] | <code>number</code> | Height of the Kik code in the PNG image |
 | [options.size] | <code>number</code> | Helper for the width and height in the PNG image |
-| [options.color] | <code>number</code> | The color which the user will see after scanning.                                  See {KikCode.Colors} |
+| [options.color] | <code>number</code> | The color which the user will see after scanning. See {KikCode.Colors} |
 
 <a name="Bot+getUserProfile"></a>
 
 ### bot.getUserProfile() ⇒ <code>[promise.&lt;UserProfile&gt;](#UserProfile)</code>
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
+
 <a name="Bot+broadcast"></a>
 
 ### bot.broadcast(messages, recipients)
@@ -346,8 +354,8 @@ Creates a Kik Code with the intended options and returns the
 
 | Param | Type |
 | --- | --- |
-| messages | <code>array</code> | 
-| recipients | <code>array</code> | 
+| messages | <code>array</code> |
+| recipients | <code>array</code> |
 
 <a name="Bot+send"></a>
 
@@ -356,9 +364,9 @@ Creates a Kik Code with the intended options and returns the
 
 | Param | Type |
 | --- | --- |
-| messages | <code>array</code> | 
-| recipient | <code>string</code> | 
-| [chatId] | <code>string</code> | 
+| messages | <code>array</code> |
+| recipient | <code>string</code> |
+| [chatId] | <code>string</code> |
 
 <a name="Bot+incoming"></a>
 
@@ -371,8 +379,7 @@ Handles the incoming requests for messages
 <a name="IncomingMessage"></a>
 
 ## IncomingMessage
-IncomingMessage
- This is a test
+Object that allows you to send a response to user messages or ignore them.
 
 **Kind**: global class  
 
@@ -390,7 +397,7 @@ IncomingMessage
 
 | Param | Type |
 | --- | --- |
-| messages | <code>[Message](#Message)</code> &#124; <code>[array.&lt;Message&gt;](#Message)</code> | 
+| messages | <code>[Message](#Message)</code> &#124; <code>[array.&lt;Message&gt;](#Message)</code> |
 
 <a name="IncomingMessage+markRead"></a>
 
@@ -413,8 +420,7 @@ IncomingMessage
 <a name="UserProfile"></a>
 
 ## UserProfile
-UserProfile
- See https://dev.kik.com/#/docs/messaging#user-profiles
+See https://dev.kik.com/#/docs/messaging#user-profiles
 
 **Kind**: global class  
 
@@ -454,12 +460,19 @@ UserProfile
 <a name="Message"></a>
 
 ## Message
-Message
-This is a test
+Object that stores a specific message that can be sent to/received from a user. The static methods of `Message` are factories that generate a specific kind of message.
 
 **Kind**: global class  
 
 * [Message](#Message)
+    * _static_
+        * [.text()](#Message.text) ⇒ <code>[Message](#Message)</code>
+        * [.link()](#Message.link) ⇒ <code>[Message](#Message)</code>
+        * [.picture()](#Message.picture) ⇒ <code>[Message](#Message)</code>
+        * [.video()](#Message.video) ⇒ <code>[Message](#Message)</code>
+        * [.isTyping()](#Message.isTyping) ⇒ <code>[Message](#Message)</code>
+        * [.readReceipt()](#Message.readReceipt) ⇒ <code>[Message](#Message)</code>
+        * [.fromJSON(json)](#Message.fromJSON) ⇒ <code>[Message](#Message)</code>
     * _instance_
         * [.from](#Message+from) ⇒ <code>string</code>
         * [.id](#Message+id) ⇒ <code>string</code>
@@ -522,14 +535,6 @@ This is a test
         * [.setMuted(muted)](#Message+setMuted) ⇒ <code>[Message](#Message)</code>
         * [.setAutoplay(autoplay)](#Message+setAutoplay) ⇒ <code>[Message](#Message)</code>
         * [.setNoSave(noSave)](#Message+setNoSave) ⇒ <code>[Message](#Message)</code>
-    * _static_
-        * [.text()](#Message.text) ⇒ <code>[Message](#Message)</code>
-        * [.link()](#Message.link) ⇒ <code>[Message](#Message)</code>
-        * [.picture()](#Message.picture) ⇒ <code>[Message](#Message)</code>
-        * [.video()](#Message.video) ⇒ <code>[Message](#Message)</code>
-        * [.isTyping()](#Message.isTyping) ⇒ <code>[Message](#Message)</code>
-        * [.readReceipt()](#Message.readReceipt) ⇒ <code>[Message](#Message)</code>
-        * [.fromJSON(json)](#Message.fromJSON) ⇒ <code>[Message](#Message)</code>
 
 <a name="Message+from"></a>
 
@@ -787,7 +792,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| text | <code>string</code> | 
+| text | <code>string</code> |
 
 <a name="Message+addResponseKeyboard"></a>
 
@@ -798,9 +803,9 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| suggestions | <code>array</code> | 
-| [isHidden] | <code>boolean</code> | 
-| [user] | <code>string</code> | 
+| suggestions | <code>array</code> |
+| [isHidden] | <code>boolean</code> |
+| [user] | <code>string</code> |
 
 <a name="Message+setKikJsData"></a>
 
@@ -809,7 +814,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| kikJsData | <code>object</code> | 
+| kikJsData | <code>object</code> |
 
 <a name="Message+setPicUrl"></a>
 
@@ -818,7 +823,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| picUrl | <code>string</code> | 
+| picUrl | <code>string</code> |
 
 <a name="Message+setNoForward"></a>
 
@@ -827,7 +832,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| noForward | <code>boolean</code> | 
+| noForward | <code>boolean</code> |
 
 <a name="Message+setIsTyping"></a>
 
@@ -836,7 +841,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| isTyping | <code>boolean</code> | 
+| isTyping | <code>boolean</code> |
 
 <a name="Message+setMessageIds"></a>
 
@@ -845,7 +850,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| messageIds | <code>array</code> | 
+| messageIds | <code>array</code> |
 
 <a name="Message+setBody"></a>
 
@@ -854,7 +859,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| body | <code>string</code> | 
+| body | <code>string</code> |
 
 <a name="Message+setText"></a>
 
@@ -863,7 +868,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| text | <code>string</code> | 
+| text | <code>string</code> |
 
 <a name="Message+setTitle"></a>
 
@@ -872,7 +877,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| title | <code>string</code> | 
+| title | <code>string</code> |
 
 <a name="Message+setUrl"></a>
 
@@ -881,7 +886,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| url | <code>string</code> | 
+| url | <code>string</code> |
 
 <a name="Message+setVideoUrl"></a>
 
@@ -890,7 +895,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| videoUrl | <code>string</code> | 
+| videoUrl | <code>string</code> |
 
 <a name="Message+setDelay"></a>
 
@@ -899,7 +904,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| delay | <code>number</code> | 
+| delay | <code>number</code> |
 
 <a name="Message+setTypeTime"></a>
 
@@ -908,7 +913,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| typeTime | <code>number</code> | 
+| typeTime | <code>number</code> |
 
 <a name="Message+setAttributionName"></a>
 
@@ -917,7 +922,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| attributionName | <code>string</code> | 
+| attributionName | <code>string</code> |
 
 <a name="Message+setAttributionIcon"></a>
 
@@ -926,7 +931,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| attributionIcon | <code>string</code> | 
+| attributionIcon | <code>string</code> |
 
 <a name="Message+setLoop"></a>
 
@@ -935,7 +940,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| loop | <code>boolean</code> | 
+| loop | <code>boolean</code> |
 
 <a name="Message+setMuted"></a>
 
@@ -944,7 +949,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| muted | <code>boolean</code> | 
+| muted | <code>boolean</code> |
 
 <a name="Message+setAutoplay"></a>
 
@@ -953,7 +958,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| autoplay | <code>boolean</code> | 
+| autoplay | <code>boolean</code> |
 
 <a name="Message+setNoSave"></a>
 
@@ -962,7 +967,7 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 | Param | Type |
 | --- | --- |
-| noSave | <code>boolean</code> | 
+| noSave | <code>boolean</code> |
 
 <a name="Message.text"></a>
 
@@ -1010,17 +1015,20 @@ Constructs a new {Message} object from a JSON-encoded payload
 
 | Param | Type |
 | --- | --- |
-| json | <code>object</code> | 
+| json | <code>object</code> |
 
 
 <a name="KikCode"></a>
 
 ## KikCode
+See https://dev.kik.com/#/docs/messaging#kik-codes-api
+
 **Kind**: global class  
+
 <a name="KikCode.Colors"></a>
 
 ### KikCode.Colors : <code>enum</code>
-KikCode.Colors
+See https://dev.kik.com/#/docs/messaging#kik-code-colors
 
 **Kind**: static enum property of <code>[KikCode](#KikCode)</code>  
 **Properties**
@@ -1043,5 +1051,3 @@ KikCode.Colors
 | RoyalPurple | <code>number</code> | <code>13</code> | #8737F8 |
 | Marine | <code>number</code> | <code>14</code> | #353CD4 |
 | Steel | <code>number</code> | <code>15</code> | #5D7687 |
-
-
