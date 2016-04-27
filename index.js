@@ -551,10 +551,10 @@ class Bot {
         }
 
         return (req, res, next) => {
-            if (req.url.indexOf(this.scanCodePath) === 0) {
+            if (req.url.indexOf(this.scanCodePath) > -1) {
                 // the kik code image only accepts GET requests
                 // requests, reject everything else
-                if (req.method !== 'GET') {
+                if (req.method != 'GET') {
                     res.statusCode = 405;
 
                     return res.end(this.scanCodePath + ' only accepts GET');
@@ -570,7 +570,7 @@ class Bot {
                     .then((kikCodeUrl) => {
                         res.redirect(301, kikCodeUrl);
                     });
-            } else if (req.url === this.incomingPath) {
+            } else if (req.url.indexOf(this.incomingPath) > -1) {
                 // the incoming route for the bot only accepts POST
                 // requests, reject everything else
                 if (req.method !== 'POST') {
@@ -578,53 +578,31 @@ class Bot {
 
                     return res.end(this.incomingPath + ' only accepts POST');
                 }
+                
+                let body = req.body;
 
-                let body = '';
+                // if (!this.skipSignatureCheck) {
+                //     if (!isSignatureValid(body, this.apiKey, req.headers['x-kik-signature'])) {
+                //         // the request was not sent with a valid signature, so we reject it
+                //         res.statusCode = 403;
+                //
+                //         return res.end('Invalid signature');
+                //     }
+                // }
 
-                req.on('data', chunk => {
-                    body += chunk;
+                if (!body.messages || !util.isArray(body.messages)) {
+                    res.statusCode = 400;
+
+                    return res.end('Invalid body');
+                }
+
+                body.messages.forEach((json) => {
+                    handle(new IncomingMessage(this).parse(json), () => {});
                 });
 
-                req.on('end', () => {
-                    if (!this.skipSignatureCheck) {
-                        if (!isSignatureValid(body, this.apiKey, req.headers['x-kik-signature'])) {
-                            // the request was not sent with a valid signature, so we reject it
-                            res.statusCode = 403;
-
-                            return res.end('Invalid signature');
-                        }
-                    }
-
-                    let parsed;
-
-                    try {
-                        parsed = JSON.parse(body);
-                    }
-                    catch (ex) {
-                        res.statusCode = 400;
-
-                        return res.end('Invalid body');
-                    }
-
-                    if (!parsed.messages || !util.isArray(parsed.messages)) {
-                        res.statusCode = 400;
-
-                        return res.end('Invalid body');
-                    }
-
-                    let remainingMessages = parsed.messages.length + 1;
-
-                    function doNothing() {
-                    }
-
-                    parsed.messages.forEach((json) => {
-                        handle(new IncomingMessage(this).parse(json), doNothing);
-                    });
-
-                    res.statusCode = 200;
-
-                    return res.end('OK');
-                });
+                res.statusCode = 200;
+                return res.end('OK');
+                
             } else {
                 if (next) {
                     next();
