@@ -188,7 +188,7 @@ class Bot {
 
     get configuration() {
         return {
-            webhook: url.resolve(this.baseUrl, this.incomingPath),
+            webhook: this.baseUrl + this.incomingPath,
             features: {
                 manuallySendReadReceipts: !!this.manuallySendReadReceipts,
                 receiveReadReceipts: !!this.receiveReadReceipts,
