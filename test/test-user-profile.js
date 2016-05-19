@@ -113,7 +113,7 @@ describe('Get user profile info', () => {
         });
 
         let engine = nock('https://api.kik.com')
-            .get('/api/v1/user/testuser1')
+            .get('/v1/user/testuser1')
             .reply(200, {
                 firstName: 'Gwendolyn',
                 lastName: 'Ferguson',
