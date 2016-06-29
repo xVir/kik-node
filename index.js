@@ -694,5 +694,6 @@ class Bot {
 Bot.Message = Message;
 Bot.KikCode = KikCode;
 Bot.API = API;
+Bot.UserProfile = UserProfile;
 
 module.exports = Bot;
