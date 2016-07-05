@@ -641,7 +641,7 @@ class Bot {
                 if (!this.pendingFlush) {
                     this.pendingFlush = true;
 
-                    process.nextTick(() => fulfill(this.flush(true)));
+                    process.nextTick(() => this.flush(true).then(fulfill, reject));
                 }
 
                 return;
@@ -686,7 +686,7 @@ class Bot {
                 }
             });
 
-            fulfill(promises);
+            Promise.all(promises).then(fulfill, reject);
         });
     }
 }
