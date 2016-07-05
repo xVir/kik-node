@@ -12,7 +12,7 @@ Use this library to communicate with the Kik API to develop a bot for [Kik Messe
 
 This project adheres to the Contributor Covenant [code of conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to bots@kik.com.
 
-If you're looking to contribute the the `kik` package, check out the [Contributing Guide](/CONTRIBUTING.md).
+If you're looking to contribute to the `kik` package, check out the [Contributing Guide](/CONTRIBUTING.md).
 
 ## Getting Help
 
