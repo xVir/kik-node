@@ -3,6 +3,7 @@
 const util = require('util');
 const crypto = require('crypto');
 const Message = require('./lib/message.js');
+const Response = require('./lib/response.js')
 const API = require('./lib/api.js');
 const UserProfile = require('./lib/user-profile.js');
 const KikCode = require('./lib/scan-code.js');
@@ -695,5 +696,6 @@ Bot.Message = Message;
 Bot.KikCode = KikCode;
 Bot.API = API;
 Bot.UserProfile = UserProfile;
+Bot.Response = Response;
 
 module.exports = Bot;
