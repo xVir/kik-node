@@ -56,7 +56,7 @@ describe('Message construction', () => {
         assert.deepEqual(message.toJSON(), expected);
     });
 
-    it('with suggested responses by keyboard methods', () => {
+    it('with suggested responses by keyboard methods strings', () => {
         const message = Bot.Message.text('body')
             .addResponseKeyboard(['A', 'B', 'C'], true, 'sometestguy');
         const expected = {
@@ -77,7 +77,7 @@ describe('Message construction', () => {
         assert.deepEqual(message.toJSON(), expected);
     });
 
-    it('with suggested responses by keyboard methods with one message', () => {
+    it('with suggested responses by keyboard methods with one message strings', () => {
         const message = Bot.Message.text('body')
             .addResponseKeyboard('A', true, 'sometestguy');
         const expected = {
@@ -96,7 +96,7 @@ describe('Message construction', () => {
         assert.deepEqual(message.toJSON(), expected);
     });
 
-    it('with suggested responses by keyboard methods without target user', () => {
+    it('with suggested responses by keyboard methods without target user strings', () => {
         const message = Bot.Message.text('body')
             .addResponseKeyboard(['A', 'B', 'C'], true);
         const expected = {
@@ -116,7 +116,7 @@ describe('Message construction', () => {
         assert.deepEqual(message.toJSON(), expected);
     });
 
-    it('with suggested responses by keyboard methods with duplicate users', () => {
+    it('with suggested responses by keyboard methods with duplicate users strings', () => {
         const message = Bot.Message.text('body')
             .addResponseKeyboard(['A', 'B', 'C'], true, 'sometestguy')
             .addResponseKeyboard(['D', 'E', 'F'], true, 'sometestguy');
@@ -141,7 +141,7 @@ describe('Message construction', () => {
         assert.deepEqual(message.toJSON(), expected);
     });
 
-    it('with suggested responses by keyboard methods with duplicate users', () => {
+    it('with suggested responses by keyboard methods with duplicate users strings', () => {
         const message = Bot.Message.text('body')
             .addResponseKeyboard(['A', 'B', 'C'], true, 'sometestguy')
             .addResponseKeyboard(['G', 'H', 'I'], true, 'sometestguy2')
@@ -176,7 +176,7 @@ describe('Message construction', () => {
         assert.deepEqual(message.toJSON(), expected);
     });
 
-    it('with suggested responses by keyboard methods without hidden', () => {
+    it('with suggested responses by keyboard methods without hidden strings', () => {
         const message = Bot.Message.text('body')
             .addResponseKeyboard(['A', 'B', 'C']);
         const expected = {
@@ -195,6 +195,241 @@ describe('Message construction', () => {
         assert.deepEqual(message.toJSON(), expected);
     });
 
+    it('with suggested responses by keyboard methods', () => {
+        const message = Bot.Message.text('body')
+            .addResponseKeyboard(
+                [Bot.Response.text('A'), Bot.Response.text('B'), Bot.Response.text('C')],
+                true, 'sometestguy');
+        const expected = {
+            type: 'text',
+            body: 'body',
+            keyboards: [{
+                type: 'suggested',
+                to: 'sometestguy',
+                hidden: true,
+                responses: [
+                    { type: 'text', body: 'A' },
+                    { type: 'text', body: 'B' },
+                    { type: 'text', body: 'C' }
+                ]
+            }]
+        };
+
+        assert.deepEqual(message.toJSON(), expected);
+    });
+
+    it('with suggested responses by keyboard methods with one message', () => {
+        const message = Bot.Message.text('body')
+            .addResponseKeyboard(
+                Bot.Response.text('A'), true, 'sometestguy');
+        const expected = {
+            type: 'text',
+            body: 'body',
+            keyboards: [{
+                type: 'suggested',
+                to: 'sometestguy',
+                hidden: true,
+                responses: [
+                    { type: 'text', body: 'A' }
+                ]
+            }]
+        };
+
+        assert.deepEqual(message.toJSON(), expected);
+    });
+
+    it('with suggested responses by keyboard methods without target user', () => {
+        const message = Bot.Message.text('body')
+            .addResponseKeyboard(
+                [Bot.Response.text('A'), Bot.Response.text('B'), Bot.Response.text('C')], true);
+        const expected = {
+            type: 'text',
+            body: 'body',
+            keyboards: [{
+                type: 'suggested',
+                hidden: true,
+                responses: [
+                    { type: 'text', body: 'A' },
+                    { type: 'text', body: 'B' },
+                    { type: 'text', body: 'C' }
+                ]
+            }]
+        };
+
+        assert.deepEqual(message.toJSON(), expected);
+    });
+
+    it('with suggested responses by keyboard methods with duplicate users', () => {
+        const message = Bot.Message.text('body')
+            .addResponseKeyboard(
+                [Bot.Response.text('A'), Bot.Response.text('B'), Bot.Response.text('C')],
+                true, 'sometestguy')
+            .addResponseKeyboard(
+                [Bot.Response.text('D'), Bot.Response.text('E'), Bot.Response.text('F')],
+                true, 'sometestguy');
+
+        const expected = {
+            type: 'text',
+            body: 'body',
+            keyboards: [{
+                type: 'suggested',
+                to: 'sometestguy',
+                hidden: true,
+                responses: [
+                    { type: 'text', body: 'A' },
+                    { type: 'text', body: 'B' },
+                    { type: 'text', body: 'C' },
+                    { type: 'text', body: 'D' },
+                    { type: 'text', body: 'E' },
+                    { type: 'text', body: 'F' }
+                ]
+            }]
+        };
+
+        assert.deepEqual(message.toJSON(), expected);
+    });
+
+    it('with suggested responses by keyboard methods with duplicate users', () => {
+        const message = Bot.Message.text('body')
+            .addResponseKeyboard(
+                [Bot.Response.text('A'), Bot.Response.text('B'), Bot.Response.text('C')],
+                true, 'sometestguy')
+            .addResponseKeyboard(
+                [Bot.Response.text('G'), Bot.Response.text('H'), Bot.Response.text('I')],
+                true, 'sometestguy2')
+            .addResponseKeyboard(
+                [Bot.Response.text('D'), Bot.Response.text('E'), Bot.Response.text('F')],
+                true, 'sometestguy');
+        const expected = {
+            type: 'text',
+            body: 'body',
+            keyboards: [{
+                type: 'suggested',
+                to: 'sometestguy',
+                hidden: true,
+                responses: [
+                    { type: 'text', body: 'A' },
+                    { type: 'text', body: 'B' },
+                    { type: 'text', body: 'C' },
+                    { type: 'text', body: 'D' },
+                    { type: 'text', body: 'E' },
+                    { type: 'text', body: 'F' }
+                ]
+            }, {
+                type: 'suggested',
+                to: 'sometestguy2',
+                hidden: true,
+                responses: [
+                    { type: 'text', body: 'G' },
+                    { type: 'text', body: 'H' },
+                    { type: 'text', body: 'I' }
+                ]
+            }]
+        };
+
+        assert.deepEqual(message.toJSON(), expected);
+    });
+
+    it('with suggested responses by keyboard methods without hidden', () => {
+        const message = Bot.Message.text('body')
+            .addResponseKeyboard(
+                [Bot.Response.text('A'), Bot.Response.text('B'), Bot.Response.text('C')]);
+        const expected = {
+            type: 'text',
+            body: 'body',
+            keyboards: [{
+                type: 'suggested',
+                responses: [
+                    { type: 'text', body: 'A' },
+                    { type: 'text', body: 'B' },
+                    { type: 'text', body: 'C' }
+                ]
+            }]
+        };
+
+        assert.deepEqual(message.toJSON(), expected);
+    });
+
+    it('with friend picker suggested response keyboard', () => {
+        const message = Bot.Message.text('body')
+            .addResponseKeyboard(
+                Bot.Response.friendPicker('A', 4, 5, ['foo']), true, 'sometestguy');
+        const expected = {
+            type: 'text',
+            body: 'body',
+            keyboards: [{
+                type: 'suggested',
+                to: 'sometestguy',
+                hidden: true,
+                responses: [
+                    {
+                        type: 'friend-picker',
+                        body: 'A',
+                        min: 4,
+                        max: 5,
+                        preselected: ['foo']
+                    }
+                ]
+            }]
+        };
+
+        assert.deepEqual(message.toJSON(), expected);
+    });
+
+    it('with multiple types of suggested responses in keyboard', () => {
+        const message = Bot.Message.text('body')
+            .addResponseKeyboard(
+                [Bot.Response.friendPicker('A', 4, 5, ['foo']), Bot.Response.text('B')],
+                true, 'sometestguy');
+        const expected = {
+            type: 'text',
+            body: 'body',
+            keyboards: [{
+                type: 'suggested',
+                to: 'sometestguy',
+                hidden: true,
+                responses: [
+                    {
+                        type: 'friend-picker',
+                        body: 'A',
+                        min: 4,
+                        max: 5,
+                        preselected: ['foo']
+                    },
+                    { type: 'text', body: 'B' }
+                ]
+            }]
+        };
+
+        assert.deepEqual(message.toJSON(), expected);
+    });
+
+    it('with friend picker suggested response missing optional parameters', () => {
+        const message = Bot.Message.text('body')
+            .addResponseKeyboard(
+                [Bot.Response.friendPicker()], true, 'sometestguy');
+        const expected = {
+            type: 'text',
+            body: 'body',
+            keyboards: [{
+                type: 'suggested',
+                to: 'sometestguy',
+                hidden: true,
+                responses: [
+                    {
+                        type: 'friend-picker',
+                        body: undefined,
+                        min: undefined,
+                        max: undefined,
+                        preselected: undefined
+                    }
+                ]
+            }]
+        };
+
+        assert.deepEqual(message.toJSON(), expected);
+    });
+
     it('with a mention', () => {
         const message = Bot.Message.text('body')
             .setMention('someotherbot');
@@ -203,7 +438,6 @@ describe('Message construction', () => {
             body: 'body',
             mention: 'someotherbot'
         };
-
         assert.deepEqual(message.toJSON(), expected);
     });
 

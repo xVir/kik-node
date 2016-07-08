@@ -3,6 +3,7 @@
 const util = require('util');
 const crypto = require('crypto');
 const Message = require('./lib/message.js');
+const Response = require('./lib/response.js')
 const API = require('./lib/api.js');
 const UserProfile = require('./lib/user-profile.js');
 const KikCode = require('./lib/scan-code.js');
@@ -641,7 +642,7 @@ class Bot {
                 if (!this.pendingFlush) {
                     this.pendingFlush = true;
 
-                    process.nextTick(() => fulfill(this.flush(true)));
+                    process.nextTick(() => this.flush(true).then(fulfill, reject));
                 }
 
                 return;
@@ -686,7 +687,7 @@ class Bot {
                 }
             });
 
-            fulfill(promises);
+            Promise.all(promises).then(fulfill, reject);
         });
     }
 }
@@ -694,5 +695,7 @@ class Bot {
 Bot.Message = Message;
 Bot.KikCode = KikCode;
 Bot.API = API;
+Bot.UserProfile = UserProfile;
+Bot.Response = Response;
 
 module.exports = Bot;
