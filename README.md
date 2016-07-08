@@ -1051,3 +1051,30 @@ See https://dev.kik.com/#/docs/messaging#kik-code-colors
 | RoyalPurple | <code>number</code> | <code>13</code> | #8737F8 |
 | Marine | <code>number</code> | <code>14</code> | #353CD4 |
 | Steel | <code>number</code> | <code>15</code> | #5D7687 |
+
+## Response
+See https://dev.kik.com/#/docs/messaging#suggested-response-keyboard
+<a name="Response"></a>
+
+**Kind**: global class  
+
+### Response.text(body) ⇒ <code>[Response](#Response)</code>
+
+**Kind**: static method of <code>[Response](#Response)</code>
+<a name="Response.text"></a> 
+
+| Param | Type |
+| --- | --- |
+| body | <code>string</code> |
+
+### Response.friendPicker([body], [min], [max], [preselected]) ⇒ <code>[Response](#Response)</code>
+
+**Kind**: static method of <code>[Response](#Response)</code> 
+<a name="Response.friendPicker"></a> 
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [body] | <code>string</code> | |
+| [min] | <code>int</code> | |
+| [max] | <code>int</code>| |
+| [preselected] | <code>array</code> | array of strings |
