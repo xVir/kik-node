@@ -198,7 +198,8 @@ describe('Message construction', () => {
     it('with suggested responses by keyboard methods', () => {
         const message = Bot.Message.text('body')
             .addResponseKeyboard(
-                [Bot.Response.text('A'), Bot.Response.text('B'), Bot.Response.text('C')], true, 'sometestguy');
+                [Bot.Response.text('A'), Bot.Response.text('B'), Bot.Response.text('C')],
+                true, 'sometestguy');
         const expected = {
             type: 'text',
             body: 'body',
@@ -261,9 +262,11 @@ describe('Message construction', () => {
     it('with suggested responses by keyboard methods with duplicate users', () => {
         const message = Bot.Message.text('body')
             .addResponseKeyboard(
-                [Bot.Response.text('A'), Bot.Response.text('B'), Bot.Response.text('C')], true, 'sometestguy')
+                [Bot.Response.text('A'), Bot.Response.text('B'), Bot.Response.text('C')],
+                true, 'sometestguy')
             .addResponseKeyboard(
-                [Bot.Response.text('D'), Bot.Response.text('E'), Bot.Response.text('F')], true, 'sometestguy');
+                [Bot.Response.text('D'), Bot.Response.text('E'), Bot.Response.text('F')],
+                true, 'sometestguy');
 
         const expected = {
             type: 'text',
@@ -289,11 +292,14 @@ describe('Message construction', () => {
     it('with suggested responses by keyboard methods with duplicate users', () => {
         const message = Bot.Message.text('body')
             .addResponseKeyboard(
-                [Bot.Response.text('A'), Bot.Response.text('B'), Bot.Response.text('C')], true, 'sometestguy')
+                [Bot.Response.text('A'), Bot.Response.text('B'), Bot.Response.text('C')],
+                true, 'sometestguy')
             .addResponseKeyboard(
-                [Bot.Response.text('G'), Bot.Response.text('H'), Bot.Response.text('I')], true, 'sometestguy2')
+                [Bot.Response.text('G'), Bot.Response.text('H'), Bot.Response.text('I')],
+                true, 'sometestguy2')
             .addResponseKeyboard(
-                [Bot.Response.text('D'), Bot.Response.text('E'), Bot.Response.text('F')], true, 'sometestguy');
+                [Bot.Response.text('D'), Bot.Response.text('E'), Bot.Response.text('F')],
+                true, 'sometestguy');
         const expected = {
             type: 'text',
             body: 'body',
@@ -373,7 +379,8 @@ describe('Message construction', () => {
     it('with multiple types of suggested responses in keyboard', () => {
         const message = Bot.Message.text('body')
             .addResponseKeyboard(
-                [Bot.Response.friendPicker('A', 4, 5, ['foo']), Bot.Response.text('B')], true, 'sometestguy');
+                [Bot.Response.friendPicker('A', 4, 5, ['foo']), Bot.Response.text('B')],
+                true, 'sometestguy');
         const expected = {
             type: 'text',
             body: 'body',
@@ -389,7 +396,7 @@ describe('Message construction', () => {
                         max: 5,
                         preselected: ['foo']
                     },
-                    {type: 'text', body: 'B'}
+                    { type: 'text', body: 'B' }
                 ]
             }]
         };
