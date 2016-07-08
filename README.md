@@ -535,6 +535,7 @@ Object that stores a specific message that can be sent to/received from a user. 
         * [.setMuted(muted)](#Message+setMuted) ⇒ <code>[Message](#Message)</code>
         * [.setAutoplay(autoplay)](#Message+setAutoplay) ⇒ <code>[Message](#Message)</code>
         * [.setNoSave(noSave)](#Message+setNoSave) ⇒ <code>[Message](#Message)</code>
+        * [.setMention(noSave)](#Message+setMention) ⇒ <code>[Message](#Message)</code>
 
 <a name="Message+from"></a>
 
@@ -968,6 +969,17 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 | Param | Type |
 | --- | --- |
 | noSave | <code>boolean</code> |
+
+<a name="Message.text"></a>
+
+<a name="Message+setNoSave"></a>
+
+### message.setMention(mention) ⇒ <code>[Message](#Message)</code>
+**Kind**: instance method of <code>[Message](#Message)</code>  
+
+| Param | Type |
+| --- | --- |
+| mention | <code>string</code> |
 
 <a name="Message.text"></a>
 
