@@ -430,6 +430,17 @@ describe('Message construction', () => {
         assert.deepEqual(message.toJSON(), expected);
     });
 
+    it('with a mention', () => {
+        const message = Bot.Message.text('body')
+            .setMention('someotherbot');
+        const expected = {
+            type: 'text',
+            body: 'body',
+            mention: 'someotherbot'
+        };
+        assert.deepEqual(message.toJSON(), expected);
+    });
+
     it('of is typing', () => {
         const message = Bot.Message.isTyping(true);
         const expected = {
