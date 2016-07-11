@@ -423,8 +423,6 @@ describe('Message construction', () => {
             }]
         };
 
-        console.log(message.toJSON().keyboards[0]);
-
         assert.deepEqual(message.toJSON(), expected);
     });
 
