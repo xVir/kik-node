@@ -503,7 +503,7 @@ Object that stores a specific message that can be sent to/received from a user. 
         * [.noSave](#Message+noSave) ⇒ <code>boolean</code>
         * [.participants](#Message+participants) ⇒ <code>array</code>
         * [.mention](#Message+mention) ⇒ <code>string</code>
-        * [.picked](#Message+mention) ⇒ <code>array</code>
+        * [.picked](#Message+picked) ⇒ <code>array</code>
         * [.isTextMessage()](#Message+isTextMessage) ⇒ <code>boolean</code>
         * [.isLinkMessage()](#Message+isLinkMessage) ⇒ <code>boolean</code>
         * [.isPictureMessage()](#Message+isPictureMessage) ⇒ <code>boolean</code>
@@ -711,6 +711,12 @@ See https://dev.kik.com/#/docs/messaging#participants
 
 ### message.mention ⇒ <code>string</code>
 See https://dev.kik.com/#/docs/messaging#mention
+
+**Kind**: instance property of <code>[Message](#Message)</code>  
+<a name="Message+picked"></a>
+
+### message.picked ⇒ <code>string</code>
+See https://dev.kik.com/#/docs/messaging#friend-picker
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+isTextMessage"></a>
