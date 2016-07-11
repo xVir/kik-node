@@ -346,7 +346,7 @@ describe('Type handler', () => {
     });
 });
 
-describe('Outoing broadcast messages', () => {
+describe('Outgoing broadcast messages', () => {
     it('throws without a recipient', () => {
         assert.throws(() => {
             let bot = new Bot({
@@ -382,7 +382,7 @@ describe('Outoing broadcast messages', () => {
     });
 });
 
-describe('Outoing messages', () => {
+describe('Outgoing messages', () => {
     it('throws without a recipient', () => {
         assert.throws(() => {
             let bot = new Bot({

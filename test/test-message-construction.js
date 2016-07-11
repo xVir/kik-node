@@ -417,15 +417,13 @@ describe('Message construction', () => {
                 hidden: true,
                 responses: [
                     {
-                        type: 'friend-picker',
-                        body: undefined,
-                        min: undefined,
-                        max: undefined,
-                        preselected: undefined
+                        type: 'friend-picker'
                     }
                 ]
             }]
         };
+
+        console.log(message.toJSON().keyboards[0]);
 
         assert.deepEqual(message.toJSON(), expected);
     });
@@ -606,6 +604,20 @@ describe('Message parsing', () => {
         assert.ok(message.isScanDataMessage());
 
         assert.equal(message.scanData, '{"store_id": "2538"}');
+    });
+
+    it('handles friend picker messages', () => {
+        const message = Bot.Message.fromJSON({
+            'type': 'friend-picker',
+            'from': 'atestuser',
+            'id': '6d8d060c-3ae4-46fc-bb18-6e7ba3182c0f',
+            'timestamp': 1399303478832,
+            'picked': ['some', 'one']
+        });
+
+        assert.ok(message.isFriendPickerMessage());
+
+        assert.deepEqual(message.picked, ['some', 'one']);
     });
 
     it('handles participants', () => {
