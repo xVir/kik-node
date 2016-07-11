@@ -761,7 +761,7 @@ See https://dev.kik.com/#/docs/messaging#scan-data
 See https://dev.kik.com/#/docs/messaging#friend-picker
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
-<a name="Message+isFriendPickerMessage"></a>
+<a name="Message+isStickerMessage"></a>
 
 ### message.isStickerMessage() ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#sticker
