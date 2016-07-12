@@ -503,12 +503,14 @@ Object that stores a specific message that can be sent to/received from a user. 
         * [.noSave](#Message+noSave) ⇒ <code>boolean</code>
         * [.participants](#Message+participants) ⇒ <code>array</code>
         * [.mention](#Message+mention) ⇒ <code>string</code>
+        * [.picked](#Message+picked) ⇒ <code>array</code>
         * [.isTextMessage()](#Message+isTextMessage) ⇒ <code>boolean</code>
         * [.isLinkMessage()](#Message+isLinkMessage) ⇒ <code>boolean</code>
         * [.isPictureMessage()](#Message+isPictureMessage) ⇒ <code>boolean</code>
         * [.isVideoMessage()](#Message+isVideoMessage) ⇒ <code>boolean</code>
         * [.isStartChattingMessage()](#Message+isStartChattingMessage) ⇒ <code>boolean</code>
         * [.isScanDataMessage()](#Message+isScanDataMessage) ⇒ <code>boolean</code>
+        * [.isFriendPickerMessage()](#Message+isFriendPickerMessage) ⇒ <code>boolean</code>
         * [.isStickerMessage()](#Message+isStickerMessage) ⇒ <code>boolean</code>
         * [.isIsTypingMessage()](#Message+isIsTypingMessage) ⇒ <code>boolean</code>
         * [.isDeliveryReceiptMessage()](#Message+isDeliveryReceiptMessage) ⇒ <code>boolean</code>
@@ -711,6 +713,12 @@ See https://dev.kik.com/#/docs/messaging#participants
 See https://dev.kik.com/#/docs/messaging#mention
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
+<a name="Message+picked"></a>
+
+### message.picked ⇒ <code>string</code>
+See https://dev.kik.com/#/docs/messaging#friend-picker
+
+**Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+isTextMessage"></a>
 
 ### message.isTextMessage() ⇒ <code>boolean</code>
@@ -745,6 +753,12 @@ See https://dev.kik.com/#/docs/messaging#start-chatting
 
 ### message.isScanDataMessage() ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#scan-data
+
+**Kind**: instance method of <code>[Message](#Message)</code>  
+<a name="Message+isFriendPickerMessage"></a>
+
+### message.isFriendPickerMessage() ⇒ <code>boolean</code>
+See https://dev.kik.com/#/docs/messaging#friend-picker
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
 <a name="Message+isStickerMessage"></a>
@@ -1073,7 +1087,7 @@ See https://dev.kik.com/#/docs/messaging#suggested-response-keyboard
 ### Response.text(body) ⇒ <code>[Response](#Response)</code>
 
 **Kind**: static method of <code>[Response](#Response)</code>
-<a name="Response.text"></a> 
+<a name="Response.text"></a>
 
 | Param | Type |
 | --- | --- |
@@ -1081,8 +1095,8 @@ See https://dev.kik.com/#/docs/messaging#suggested-response-keyboard
 
 ### Response.friendPicker([body], [min], [max], [preselected]) ⇒ <code>[Response](#Response)</code>
 
-**Kind**: static method of <code>[Response](#Response)</code> 
-<a name="Response.friendPicker"></a> 
+**Kind**: static method of <code>[Response](#Response)</code>
+<a name="Response.friendPicker"></a>
 
 | Param | Type | Description |
 | --- | --- | --- |
