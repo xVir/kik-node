@@ -407,6 +407,20 @@ class Bot {
     }
 
     /**
+     *  @param {MessageHandlerCallback} handler
+     */
+    onFriendPickerMessage(handler) {
+        this.use((incoming, next) => {
+            if (incoming.isFriendPickerMessage()) {
+                handler(incoming, next);
+            } else {
+                next();
+            }
+        });
+        return this;
+    }
+
+    /**
      *  Creates a Kik Code with the intended options and returns the
      *  URL of the Kik Code image. If the options specify a data Kik Code
      *  this will hit the Kik Code service and store that data for you.
