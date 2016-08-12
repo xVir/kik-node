@@ -167,6 +167,7 @@ Parses user messages sent from Kik's server. Use the [.incoming()](#Bot+incoming
     * [.onVideoMessage(handler)](#Bot+onVideoMessage)
     * [.onStartChattingMessage(handler)](#Bot+onStartChattingMessage)
     * [.onScanDataMessage(handler)](#Bot+onScanDataMessage)
+    * [.onFriendPickerMessage(handler)](#Bot+onFriendPickerMessage)
     * [.onStickerMessage(handler)](#Bot+onStickerMessage)
     * [.onIsTypingMessage(handler)](#Bot+onIsTypingMessage)
     * [.onDeliveryReceiptMessage(handler)](#Bot+onDeliveryReceiptMessage)
@@ -283,6 +284,14 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 <a name="Bot+onScanDataMessage"></a>
 
 ### bot.onScanDataMessage(handler)
+**Kind**: instance method of <code>[Bot](#Bot)</code>  
+
+| Param | Type |
+| --- | --- |
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
+<a name="Bot+onFriendPickerMessage"></a>
+
+### bot.onFriendPickerMessage(handler)
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
 | Param | Type |
