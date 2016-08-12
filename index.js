@@ -147,6 +147,7 @@ class Bot {
         this.scanCodePath = '/kik-code.png';
         this.incomingPath = '/incoming';
         this.maxMessagePerBatch = 25;
+        this.maxMessagePerBroadcast = 100;
 
         this.manuallySendReadReceipts = false;
         this.receiveReadReceipts = false;
@@ -499,7 +500,13 @@ class Bot {
             });
         });
 
-        return API.broadcastMessages(this.apiDomain, this.username, this.apiKey, pendingMessages);
+        let promises = [];
+        for(let i = 0 ; i < pendingMessages.length ; i += this.maxMessagePerBroadcast) {
+            let slice = pendingMessages.slice(i, i + this.maxMessagePerBroadcast);
+            promises.push(API.broadcastMessages(this.apiDomain, this.username, this.apiKey, slice));
+        }
+
+        return Promise.all(promises);
     }
 
     /**

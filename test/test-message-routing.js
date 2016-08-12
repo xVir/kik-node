@@ -388,6 +388,36 @@ describe('Outgoing broadcast messages', () => {
             body: 'Test'
         }, 'testuser1');
     });
+
+    it('are sent in batches', (done) => {
+        let bot = new Bot({
+            username: BOT_USERNAME,
+            apiKey: BOT_API_KEY,
+            skipSignatureCheck: true
+        });
+
+        let users = [];
+        for(let i = 0 ; i < 51 ; i++){
+            users.push('testuser' + i);
+        }
+
+        messageChecker = (err, body, cb) => {
+            assert.equal(body.messages.length, 100);
+
+            messageChecker = (err, body, cb) => {
+                assert.equal(body.messages.length, 2);
+                done();
+            };
+        };
+
+        bot.broadcast([{
+            'type': 'text',
+            'body': 'somebody'
+        }, {
+            'type': 'text',
+            'body': 'some other body'
+        }], users);
+    });
 });
 
 describe('Outgoing messages', () => {
