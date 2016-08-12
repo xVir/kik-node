@@ -247,7 +247,8 @@ describe('Type handler', () => {
             'sticker': 0,
             'is-typing': 0,
             'delivery-receipt': 0,
-            'read-receipt': 0
+            'read-receipt': 0,
+            'friend-picker': 0
         };
         const messages = [
             { type: 'link' },
@@ -258,6 +259,7 @@ describe('Type handler', () => {
             { type: 'text' },
             { type: 'sticker' },
             { type: 'is-typing' },
+            { type: 'friend-picker' },
             { type: 'picture' },
             { type: 'read-receipt' },
             { type: 'start-chatting' },
@@ -269,7 +271,8 @@ describe('Type handler', () => {
             { type: 'picture' },
             { type: 'link' },
             { type: 'scan-data' },
-            { type: 'read-receipt' }
+            { type: 'read-receipt' },
+            { type: 'friend-picker' }
         ];
 
         bot.onTextMessage((incoming, next) => {
@@ -319,6 +322,11 @@ describe('Type handler', () => {
 
         bot.onReadReceiptMessage((incoming, next) => {
             ++typeCounts['read-receipt'];
+            next();
+        });
+
+        bot.onFriendPickerMessage((incoming, next) => {
+            ++typeCounts['friend-picker'];
             next();
         });
 
