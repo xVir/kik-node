@@ -220,7 +220,7 @@ Parses user messages sent from Kik's server. Use the [.incoming()](#Bot+incoming
 
 **Example**  
 ```js
-bot.onTextMessage((incoming, bot) => {
+bot.onTextMessage((incoming, next) => {
      // reply handles the message and stops other handlers
      // from being called for this message
      incoming.reply(`Hi I'm ${bot.username}`);
