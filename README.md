@@ -192,6 +192,7 @@ Parses user messages sent from Kik's server. Use the [.incoming()](#Bot+incoming
 | [options.receiveReadReceipts] | <code>boolean</code> |  |
 | [options.receiveDeliveryReceipts] | <code>boolean</code> |  |
 | [options.receiveIsTyping] | <code>boolean</code> |  |
+| [options.skipSignatureCheck] | <code>boolean</code> | Verify the authenticity of inbound requests. **For testing only, do not disable for a bot in production.** |
 
 <a name="Bot+use"></a>
 
