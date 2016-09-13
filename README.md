@@ -177,6 +177,7 @@ Parses user messages sent from Kik's server. Use the [.incoming()](#Bot+incoming
     * [.broadcast(messages, recipients)](#Bot+broadcast)
     * [.send(messages, recipient, [chatId])](#Bot+send)
     * [.incoming()](#Bot+incoming)
+    * [.outgoing(hander)](#Bot+incoming)
 
 <a name="new_Bot_new"></a>
 
@@ -385,6 +386,26 @@ Handles the incoming requests for messages
  configuration.
 
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
+
+<a name="Bot+outgoing"></a>
+
+### bot.outgoing(handler)
+Adds a post processing handler for all outgoing messages.
+Messages passed to this handler will be JSON objects.
+
+**Kind**: instance method of <code>[Bot](#Bot)</code>  
+
+| Param | Type |
+| --- | --- |
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
+
+**Example**  
+```js
+bot.outgoing((outgoing, next) => {
+     console.log('Outgoing message:', outgoing);
+     next();
+});
+```
 
 <a name="IncomingMessage"></a>
 
