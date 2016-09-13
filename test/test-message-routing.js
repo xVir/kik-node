@@ -802,4 +802,47 @@ describe('Reply handling', () => {
             .expect(200)
             .end(() => {});
     });
+    it('can process outgoing messages', (done) => {
+        let bot = new Bot({
+            username: BOT_USERNAME,
+            apiKey: BOT_API_KEY,
+            skipSignatureCheck: true
+        });
+
+        bot.use((incoming, next) => {
+            incoming.markRead();
+        });
+
+        bot.outgoing((outgoing, next) => {
+            outgoing.body += 'foo';
+            next();
+        });
+
+        bot.outgoing((outgoing, next) => {
+            outgoing.body += 'bar';
+            next();
+        });
+
+        messageChecker = (err, body, cb) => {
+            let message = Bot.Message.fromJSON(body.messages[0]);
+
+            assert.ok(message.isReadReceiptMessage());
+            assert.deepEqual(message.messageIds, ['3652a09b-4be8-4006-ac56-5d8b31464078']);
+
+            done();
+        };
+
+        request(bot.incoming())
+            .post('/incoming')
+            .send({
+                messages: [{
+                    id: '3652a09b-4be8-4006-ac56-5d8b31464078',
+                    body: 'Testfoobar',
+                    type: 'text',
+                    from: 'testuser1'
+                }]
+            })
+            .expect(200)
+            .end(() => {});
+    });
 });
