@@ -177,7 +177,7 @@ Parses user messages sent from Kik's server. Use the [.incoming()](#Bot+incoming
     * [.broadcast(messages, recipients)](#Bot+broadcast)
     * [.send(messages, recipient, [chatId])](#Bot+send)
     * [.incoming()](#Bot+incoming)
-    * [.outgoing(hander)](#Bot+incoming)
+    * [.outgoing(handler)](#Bot+outgoing)
 
 <a name="new_Bot_new"></a>
 
