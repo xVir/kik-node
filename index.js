@@ -672,16 +672,16 @@ class Bot {
         return new Promise((fulfill, reject) => {
             const outgoingStack = this.outgoingStack.slice(0);
 
-            function runNextHander() {
+            function runNextHandler() {
                 const handler = outgoingStack.shift();
                 if (handler) {
-                    handler(message, runNextHander);
+                    handler(message, runNextHandler);
                 } else {
                     fulfill();
                 }
             }
 
-            runNextHander();
+            runNextHandler();
         });
     }
 
