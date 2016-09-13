@@ -845,4 +845,45 @@ describe('Reply handling', () => {
             .expect(200)
             .end(() => {});
     });
+    it('can process multiple outgoing messages', (done) => {
+        let bot = new Bot({
+            username: BOT_USERNAME,
+            apiKey: BOT_API_KEY,
+            skipSignatureCheck: true
+        });
+
+        bot.use((incoming, next) => {
+            incoming.reply('Hi');
+            incoming.reply('There');
+            next();
+        });
+
+        bot.outgoing((outgoing, next) => {
+            outgoing.body += 'foo';
+            next();
+        });
+
+        bot.outgoing((outgoing, next) => {
+            outgoing.body += 'bar';
+            next();
+        });
+
+        messageChecker = (err, body, cb) => {
+            assert.equal(body.messages[0].body, 'Hifoobar');
+            assert.equal(body.messages[1].body, 'Therefoobar');
+            done();
+        };
+
+        request(bot.incoming())
+            .post('/incoming')
+            .send({
+                messages: [{
+                    body: 'Testfoobar',
+                    type: 'text',
+                    from: 'testuser1'
+                }]
+            })
+            .expect(200)
+            .end(() => {});
+    });
 });
