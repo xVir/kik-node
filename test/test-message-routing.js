@@ -810,7 +810,7 @@ describe('Reply handling', () => {
         });
 
         bot.use((incoming, next) => {
-            incoming.markRead();
+            incoming.reply('Hi');
         });
 
         bot.outgoing((outgoing, next) => {
@@ -825,9 +825,7 @@ describe('Reply handling', () => {
 
         messageChecker = (err, body, cb) => {
             let message = Bot.Message.fromJSON(body.messages[0]);
-
-            assert.ok(message.isReadReceiptMessage());
-            assert.deepEqual(message.messageIds, ['3652a09b-4be8-4006-ac56-5d8b31464078']);
+            assert.equal(message.body, 'Hifoobar')
 
             done();
         };
@@ -837,7 +835,7 @@ describe('Reply handling', () => {
             .send({
                 messages: [{
                     id: '3652a09b-4be8-4006-ac56-5d8b31464078',
-                    body: 'Testfoobar',
+                    body: 'Test',
                     type: 'text',
                     from: 'testuser1'
                 }]
