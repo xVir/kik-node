@@ -184,6 +184,7 @@ class Bot {
         }
 
         this.stack = [];
+        this.outgoingStack = [];
         this.pendingMessages = [];
         this.pendingFlush = null;
     }
@@ -210,6 +211,14 @@ class Bot {
 
     getBotConfiguration() {
         return API.getConfiguration(this.apiDomain, this.username, this.apiKey);
+    }
+
+    /**
+     *  Adds a handler to call when sending a message to a user.
+     *  @param {MessageHandlerCallback} handler
+     */
+    outgoing(handler) {
+        this.outgoingStack.push(handler);
     }
 
     /**
@@ -655,6 +664,27 @@ class Bot {
         };
     }
 
+    /**
+     *  Runs the outgoing handlers on the specified message.
+     *  @return {promise.<object>}
+     */
+    postProcessMessage(message) {
+        return new Promise((fulfill, reject) => {
+            const outgoingStack = this.outgoingStack.slice(0);
+
+            function runNextHandler() {
+                const handler = outgoingStack.shift();
+                if (handler) {
+                    handler(message, runNextHandler);
+                } else {
+                    fulfill();
+                }
+            }
+
+            runNextHandler();
+        });
+    }
+
     flush(forced) {
         return new Promise((fulfill, reject) => {
             let pendingMessages = this.pendingMessages;
@@ -672,43 +702,51 @@ class Bot {
             this.pendingFlush = false;
             this.pendingMessages = [];
 
-            let batches = {};
-
-            pendingMessages.forEach((message) => {
-                let to = message.to;
-                let batch = batches[to];
-
-                if (!batch) {
-                    batch = batches[to] = [];
-                }
-
-                batch.push(message);
+            // Run post processing handlers on the messages
+            const postProcessPromises = pendingMessages.map(message => {
+                return this.postProcessMessage(message);
             });
 
-            let promises = [];
+            Promise.all(postProcessPromises).then(() => {
+                // Batch per username
+                let batches = {};
 
-            Object.keys(batches).forEach((key) => {
-                let batch = batches[key];
+                pendingMessages.forEach((message) => {
+                    let to = message.to;
+                    let batch = batches[to];
 
-                while (batch.length > 0) {
-                    // keep the remainder around to send after
-                    let nextBatch = batch.slice(this.maxMessagePerBatch, batch.length);
+                    if (!batch) {
+                        batch = batches[to] = [];
+                    }
 
-                    // trim the batch to the max limit
-                    batch.length = Math.min(batch.length, this.maxMessagePerBatch);
+                    batch.push(message);
+                });
 
-                    promises.push(API.sendMessages(
-                        this.apiDomain,
-                        this.username,
-                        this.apiKey,
-                        batch)
-                    );
+                let promises = [];
 
-                    batch = nextBatch;
-                }
+                Object.keys(batches).forEach((key) => {
+                    let batch = batches[key];
+
+                    while (batch.length > 0) {
+                        // keep the remainder around to send after
+                        let nextBatch = batch.slice(this.maxMessagePerBatch, batch.length);
+
+                        // trim the batch to the max limit
+                        batch.length = Math.min(batch.length, this.maxMessagePerBatch);
+
+                        promises.push(API.sendMessages(
+                            this.apiDomain,
+                            this.username,
+                            this.apiKey,
+                            batch)
+                        );
+
+                        batch = nextBatch;
+                    }
+                });
+
+                Promise.all(promises).then(fulfill, reject);
             });
-
-            Promise.all(promises).then(fulfill, reject);
         });
     }
 }
