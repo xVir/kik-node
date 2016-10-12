@@ -606,24 +606,22 @@ class Bot {
                 // requests, reject everything else
                 if (req.method !== 'POST') {
                     res.statusCode = 405;
-
                     return res.end(this.incomingPath + ' only accepts POST');
                 }
-                
-                let body = req.body;
 
-                // if (!this.skipSignatureCheck) {
-                //     if (!isSignatureValid(body, this.apiKey, req.headers['x-kik-signature'])) {
-                //         // the request was not sent with a valid signature, so we reject it
-                //         res.statusCode = 403;
-                //
-                //         return res.end('Invalid signature');
-                //     }
-                // }
+                let body = req.body;
+                let rawBody = req.rawBody;
+
+                if (!this.skipSignatureCheck) {
+                    if (!isSignatureValid(rawBody, this.apiKey, req.headers['x-kik-signature'])) {
+                        // the request was not sent with a valid signature, so we reject it
+                        res.statusCode = 403;
+                        return res.end('Invalid signature');
+                    }
+                }
 
                 if (!body.messages || !util.isArray(body.messages)) {
                     res.statusCode = 400;
-
                     return res.end('Invalid body');
                 }
 
