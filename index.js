@@ -3,6 +3,7 @@
 const util = require('util');
 const crypto = require('crypto');
 const Message = require('./lib/message.js');
+const Response = require('./lib/response.js')
 const API = require('./lib/api.js');
 const UserProfile = require('./lib/user-profile.js');
 const KikCode = require('./lib/scan-code.js');
@@ -146,6 +147,7 @@ class Bot {
         this.scanCodePath = '/kik-code.png';
         this.incomingPath = '/incoming';
         this.maxMessagePerBatch = 25;
+        this.maxMessagePerBroadcast = 100;
 
         this.manuallySendReadReceipts = false;
         this.receiveReadReceipts = false;
@@ -182,6 +184,7 @@ class Bot {
         }
 
         this.stack = [];
+        this.outgoingStack = [];
         this.pendingMessages = [];
         this.pendingFlush = null;
     }
@@ -208,6 +211,14 @@ class Bot {
 
     getBotConfiguration() {
         return API.getConfiguration(this.apiDomain, this.username, this.apiKey);
+    }
+
+    /**
+     *  Adds a handler to call when sending a message to a user.
+     *  @param {MessageHandlerCallback} handler
+     */
+    outgoing(handler) {
+        this.outgoingStack.push(handler);
     }
 
     /**
@@ -406,6 +417,20 @@ class Bot {
     }
 
     /**
+     *  @param {MessageHandlerCallback} handler
+     */
+    onFriendPickerMessage(handler) {
+        this.use((incoming, next) => {
+            if (incoming.isFriendPickerMessage()) {
+                handler(incoming, next);
+            } else {
+                next();
+            }
+        });
+        return this;
+    }
+
+    /**
      *  Creates a Kik Code with the intended options and returns the
      *  URL of the Kik Code image. If the options specify a data Kik Code
      *  this will hit the Kik Code service and store that data for you.
@@ -484,7 +509,13 @@ class Bot {
             });
         });
 
-        return API.broadcastMessages(this.apiDomain, this.username, this.apiKey, pendingMessages);
+        let promises = [];
+        for(let i = 0 ; i < pendingMessages.length ; i += this.maxMessagePerBroadcast) {
+            let slice = pendingMessages.slice(i, i + this.maxMessagePerBroadcast);
+            promises.push(API.broadcastMessages(this.apiDomain, this.username, this.apiKey, slice));
+        }
+
+        return Promise.all(promises);
     }
 
     /**
@@ -611,6 +642,27 @@ class Bot {
         };
     }
 
+    /**
+     *  Runs the outgoing handlers on the specified message.
+     *  @return {promise.<object>}
+     */
+    postProcessMessage(message) {
+        return new Promise((fulfill, reject) => {
+            const outgoingStack = this.outgoingStack.slice(0);
+
+            function runNextHandler() {
+                const handler = outgoingStack.shift();
+                if (handler) {
+                    handler(message, runNextHandler);
+                } else {
+                    fulfill();
+                }
+            }
+
+            runNextHandler();
+        });
+    }
+
     flush(forced) {
         return new Promise((fulfill, reject) => {
             let pendingMessages = this.pendingMessages;
@@ -619,7 +671,7 @@ class Bot {
                 if (!this.pendingFlush) {
                     this.pendingFlush = true;
 
-                    process.nextTick(() => fulfill(this.flush(true)));
+                    process.nextTick(() => this.flush(true).then(fulfill, reject));
                 }
 
                 return;
@@ -628,43 +680,51 @@ class Bot {
             this.pendingFlush = false;
             this.pendingMessages = [];
 
-            let batches = {};
-
-            pendingMessages.forEach((message) => {
-                let to = message.to;
-                let batch = batches[to];
-
-                if (!batch) {
-                    batch = batches[to] = [];
-                }
-
-                batch.push(message);
+            // Run post processing handlers on the messages
+            const postProcessPromises = pendingMessages.map(message => {
+                return this.postProcessMessage(message);
             });
 
-            let promises = [];
+            Promise.all(postProcessPromises).then(() => {
+                // Batch per username
+                let batches = {};
 
-            Object.keys(batches).forEach((key) => {
-                let batch = batches[key];
+                pendingMessages.forEach((message) => {
+                    let to = message.to;
+                    let batch = batches[to];
 
-                while (batch.length > 0) {
-                    // keep the remainder around to send after
-                    let nextBatch = batch.slice(this.maxMessagePerBatch, batch.length);
+                    if (!batch) {
+                        batch = batches[to] = [];
+                    }
 
-                    // trim the batch to the max limit
-                    batch.length = Math.min(batch.length, this.maxMessagePerBatch);
+                    batch.push(message);
+                });
 
-                    promises.push(API.sendMessages(
-                        this.apiDomain,
-                        this.username,
-                        this.apiKey,
-                        batch)
-                    );
+                let promises = [];
 
-                    batch = nextBatch;
-                }
+                Object.keys(batches).forEach((key) => {
+                    let batch = batches[key];
+
+                    while (batch.length > 0) {
+                        // keep the remainder around to send after
+                        let nextBatch = batch.slice(this.maxMessagePerBatch, batch.length);
+
+                        // trim the batch to the max limit
+                        batch.length = Math.min(batch.length, this.maxMessagePerBatch);
+
+                        promises.push(API.sendMessages(
+                            this.apiDomain,
+                            this.username,
+                            this.apiKey,
+                            batch)
+                        );
+
+                        batch = nextBatch;
+                    }
+                });
+
+                Promise.all(promises).then(fulfill, reject);
             });
-
-            fulfill(promises);
         });
     }
 }
@@ -672,5 +732,7 @@ class Bot {
 Bot.Message = Message;
 Bot.KikCode = KikCode;
 Bot.API = API;
+Bot.UserProfile = UserProfile;
+Bot.Response = Response;
 
 module.exports = Bot;

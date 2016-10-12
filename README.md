@@ -12,7 +12,7 @@ Use this library to communicate with the Kik API to develop a bot for [Kik Messe
 
 This project adheres to the Contributor Covenant [code of conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to bots@kik.com.
 
-If you're looking to contribute the the `kik` package, check out the [Contributing Guide](/CONTRIBUTING.md).
+If you're looking to contribute to the `kik` package, check out the [Contributing Guide](/CONTRIBUTING.md).
 
 ## Getting Help
 
@@ -167,6 +167,7 @@ Parses user messages sent from Kik's server. Use the [.incoming()](#Bot+incoming
     * [.onVideoMessage(handler)](#Bot+onVideoMessage)
     * [.onStartChattingMessage(handler)](#Bot+onStartChattingMessage)
     * [.onScanDataMessage(handler)](#Bot+onScanDataMessage)
+    * [.onFriendPickerMessage(handler)](#Bot+onFriendPickerMessage)
     * [.onStickerMessage(handler)](#Bot+onStickerMessage)
     * [.onIsTypingMessage(handler)](#Bot+onIsTypingMessage)
     * [.onDeliveryReceiptMessage(handler)](#Bot+onDeliveryReceiptMessage)
@@ -176,6 +177,7 @@ Parses user messages sent from Kik's server. Use the [.incoming()](#Bot+incoming
     * [.broadcast(messages, recipients)](#Bot+broadcast)
     * [.send(messages, recipient, [chatId])](#Bot+send)
     * [.incoming()](#Bot+incoming)
+    * [.outgoing(handler)](#Bot+outgoing)
 
 <a name="new_Bot_new"></a>
 
@@ -191,6 +193,7 @@ Parses user messages sent from Kik's server. Use the [.incoming()](#Bot+incoming
 | [options.receiveReadReceipts] | <code>boolean</code> |  |
 | [options.receiveDeliveryReceipts] | <code>boolean</code> |  |
 | [options.receiveIsTyping] | <code>boolean</code> |  |
+| [options.skipSignatureCheck] | <code>boolean</code> | Verify the authenticity of inbound requests. **For testing only, do not disable for a bot in production.** |
 
 <a name="Bot+use"></a>
 
@@ -218,7 +221,7 @@ Parses user messages sent from Kik's server. Use the [.incoming()](#Bot+incoming
 
 **Example**  
 ```js
-bot.onTextMessage((incoming, bot) => {
+bot.onTextMessage((incoming, next) => {
      // reply handles the message and stops other handlers
      // from being called for this message
      incoming.reply(`Hi I'm ${bot.username}`);
@@ -283,6 +286,14 @@ bot.onTextMessage(/^hi|hello|bonjour$/i, (incoming, next) => {
 <a name="Bot+onScanDataMessage"></a>
 
 ### bot.onScanDataMessage(handler)
+**Kind**: instance method of <code>[Bot](#Bot)</code>  
+
+| Param | Type |
+| --- | --- |
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
+<a name="Bot+onFriendPickerMessage"></a>
+
+### bot.onFriendPickerMessage(handler)
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
 
 | Param | Type |
@@ -375,6 +386,26 @@ Handles the incoming requests for messages
  configuration.
 
 **Kind**: instance method of <code>[Bot](#Bot)</code>  
+
+<a name="Bot+outgoing"></a>
+
+### bot.outgoing(handler)
+Adds a post processing handler for all outgoing messages.
+Messages passed to this handler will be JSON objects.
+
+**Kind**: instance method of <code>[Bot](#Bot)</code>  
+
+| Param | Type |
+| --- | --- |
+| handler | <code>[MessageHandlerCallback](#MessageHandlerCallback)</code> |
+
+**Example**  
+```js
+bot.outgoing((outgoing, next) => {
+     console.log('Outgoing message:', outgoing);
+     next();
+});
+```
 
 <a name="IncomingMessage"></a>
 
@@ -503,12 +534,14 @@ Object that stores a specific message that can be sent to/received from a user. 
         * [.noSave](#Message+noSave) ⇒ <code>boolean</code>
         * [.participants](#Message+participants) ⇒ <code>array</code>
         * [.mention](#Message+mention) ⇒ <code>string</code>
+        * [.picked](#Message+picked) ⇒ <code>array</code>
         * [.isTextMessage()](#Message+isTextMessage) ⇒ <code>boolean</code>
         * [.isLinkMessage()](#Message+isLinkMessage) ⇒ <code>boolean</code>
         * [.isPictureMessage()](#Message+isPictureMessage) ⇒ <code>boolean</code>
         * [.isVideoMessage()](#Message+isVideoMessage) ⇒ <code>boolean</code>
         * [.isStartChattingMessage()](#Message+isStartChattingMessage) ⇒ <code>boolean</code>
         * [.isScanDataMessage()](#Message+isScanDataMessage) ⇒ <code>boolean</code>
+        * [.isFriendPickerMessage()](#Message+isFriendPickerMessage) ⇒ <code>boolean</code>
         * [.isStickerMessage()](#Message+isStickerMessage) ⇒ <code>boolean</code>
         * [.isIsTypingMessage()](#Message+isIsTypingMessage) ⇒ <code>boolean</code>
         * [.isDeliveryReceiptMessage()](#Message+isDeliveryReceiptMessage) ⇒ <code>boolean</code>
@@ -535,6 +568,7 @@ Object that stores a specific message that can be sent to/received from a user. 
         * [.setMuted(muted)](#Message+setMuted) ⇒ <code>[Message](#Message)</code>
         * [.setAutoplay(autoplay)](#Message+setAutoplay) ⇒ <code>[Message](#Message)</code>
         * [.setNoSave(noSave)](#Message+setNoSave) ⇒ <code>[Message](#Message)</code>
+        * [.setMention(noSave)](#Message+setMention) ⇒ <code>[Message](#Message)</code>
 
 <a name="Message+from"></a>
 
@@ -710,6 +744,12 @@ See https://dev.kik.com/#/docs/messaging#participants
 See https://dev.kik.com/#/docs/messaging#mention
 
 **Kind**: instance property of <code>[Message](#Message)</code>  
+<a name="Message+picked"></a>
+
+### message.picked ⇒ <code>string</code>
+See https://dev.kik.com/#/docs/messaging#friend-picker
+
+**Kind**: instance property of <code>[Message](#Message)</code>  
 <a name="Message+isTextMessage"></a>
 
 ### message.isTextMessage() ⇒ <code>boolean</code>
@@ -744,6 +784,12 @@ See https://dev.kik.com/#/docs/messaging#start-chatting
 
 ### message.isScanDataMessage() ⇒ <code>boolean</code>
 See https://dev.kik.com/#/docs/messaging#scan-data
+
+**Kind**: instance method of <code>[Message](#Message)</code>  
+<a name="Message+isFriendPickerMessage"></a>
+
+### message.isFriendPickerMessage() ⇒ <code>boolean</code>
+See https://dev.kik.com/#/docs/messaging#friend-picker
 
 **Kind**: instance method of <code>[Message](#Message)</code>  
 <a name="Message+isStickerMessage"></a>
@@ -971,6 +1017,17 @@ See https://dev.kik.com/#/docs/messaging#keyboards
 
 <a name="Message.text"></a>
 
+<a name="Message+setNoSave"></a>
+
+### message.setMention(mention) ⇒ <code>[Message](#Message)</code>
+**Kind**: instance method of <code>[Message](#Message)</code>  
+
+| Param | Type |
+| --- | --- |
+| mention | <code>string</code> |
+
+<a name="Message.text"></a>
+
 ### Message.text() ⇒ <code>[Message](#Message)</code>
 See https://dev.kik.com/#/docs/messaging#text
 
@@ -1051,3 +1108,30 @@ See https://dev.kik.com/#/docs/messaging#kik-code-colors
 | RoyalPurple | <code>number</code> | <code>13</code> | #8737F8 |
 | Marine | <code>number</code> | <code>14</code> | #353CD4 |
 | Steel | <code>number</code> | <code>15</code> | #5D7687 |
+
+## Response
+See https://dev.kik.com/#/docs/messaging#suggested-response-keyboard
+<a name="Response"></a>
+
+**Kind**: global class  
+
+### Response.text(body) ⇒ <code>[Response](#Response)</code>
+
+**Kind**: static method of <code>[Response](#Response)</code>
+<a name="Response.text"></a>
+
+| Param | Type |
+| --- | --- |
+| body | <code>string</code> |
+
+### Response.friendPicker([body], [min], [max], [preselected]) ⇒ <code>[Response](#Response)</code>
+
+**Kind**: static method of <code>[Response](#Response)</code>
+<a name="Response.friendPicker"></a>
+
+| Param | Type | Description |
+| --- | --- | --- |
+| [body] | <code>string</code> | |
+| [min] | <code>int</code> | |
+| [max] | <code>int</code>| |
+| [preselected] | <code>array</code> | array of strings |

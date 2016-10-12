@@ -247,7 +247,8 @@ describe('Type handler', () => {
             'sticker': 0,
             'is-typing': 0,
             'delivery-receipt': 0,
-            'read-receipt': 0
+            'read-receipt': 0,
+            'friend-picker': 0
         };
         const messages = [
             { type: 'link' },
@@ -258,6 +259,7 @@ describe('Type handler', () => {
             { type: 'text' },
             { type: 'sticker' },
             { type: 'is-typing' },
+            { type: 'friend-picker' },
             { type: 'picture' },
             { type: 'read-receipt' },
             { type: 'start-chatting' },
@@ -269,7 +271,8 @@ describe('Type handler', () => {
             { type: 'picture' },
             { type: 'link' },
             { type: 'scan-data' },
-            { type: 'read-receipt' }
+            { type: 'read-receipt' },
+            { type: 'friend-picker' }
         ];
 
         bot.onTextMessage((incoming, next) => {
@@ -322,6 +325,11 @@ describe('Type handler', () => {
             next();
         });
 
+        bot.onFriendPickerMessage((incoming, next) => {
+            ++typeCounts['friend-picker'];
+            next();
+        });
+
         bot.use((incoming, next) => {
             ++messageCount;
 
@@ -346,7 +354,7 @@ describe('Type handler', () => {
     });
 });
 
-describe('Outoing broadcast messages', () => {
+describe('Outgoing broadcast messages', () => {
     it('throws without a recipient', () => {
         assert.throws(() => {
             let bot = new Bot({
@@ -380,9 +388,39 @@ describe('Outoing broadcast messages', () => {
             body: 'Test'
         }, 'testuser1');
     });
+
+    it('are sent in batches', (done) => {
+        let bot = new Bot({
+            username: BOT_USERNAME,
+            apiKey: BOT_API_KEY,
+            skipSignatureCheck: true
+        });
+
+        let users = [];
+        for(let i = 0 ; i < 51 ; i++){
+            users.push('testuser' + i);
+        }
+
+        messageChecker = (err, body, cb) => {
+            assert.equal(body.messages.length, 100);
+
+            messageChecker = (err, body, cb) => {
+                assert.equal(body.messages.length, 2);
+                done();
+            };
+        };
+
+        bot.broadcast([{
+            'type': 'text',
+            'body': 'somebody'
+        }, {
+            'type': 'text',
+            'body': 'some other body'
+        }], users);
+    });
 });
 
-describe('Outoing messages', () => {
+describe('Outgoing messages', () => {
     it('throws without a recipient', () => {
         assert.throws(() => {
             let bot = new Bot({
@@ -757,6 +795,88 @@ describe('Reply handling', () => {
                 messages: [{
                     id: '3652a09b-4be8-4006-ac56-5d8b31464078',
                     body: 'Test',
+                    type: 'text',
+                    from: 'testuser1'
+                }]
+            })
+            .expect(200)
+            .end(() => {});
+    });
+    it('can process outgoing messages', (done) => {
+        let bot = new Bot({
+            username: BOT_USERNAME,
+            apiKey: BOT_API_KEY,
+            skipSignatureCheck: true
+        });
+
+        bot.use((incoming, next) => {
+            incoming.reply('Hi');
+        });
+
+        bot.outgoing((outgoing, next) => {
+            outgoing.body += 'foo';
+            next();
+        });
+
+        bot.outgoing((outgoing, next) => {
+            outgoing.body += 'bar';
+            next();
+        });
+
+        messageChecker = (err, body, cb) => {
+            let message = Bot.Message.fromJSON(body.messages[0]);
+            assert.equal(message.body, 'Hifoobar')
+
+            done();
+        };
+
+        request(bot.incoming())
+            .post('/incoming')
+            .send({
+                messages: [{
+                    id: '3652a09b-4be8-4006-ac56-5d8b31464078',
+                    body: 'Test',
+                    type: 'text',
+                    from: 'testuser1'
+                }]
+            })
+            .expect(200)
+            .end(() => {});
+    });
+    it('can process multiple outgoing messages', (done) => {
+        let bot = new Bot({
+            username: BOT_USERNAME,
+            apiKey: BOT_API_KEY,
+            skipSignatureCheck: true
+        });
+
+        bot.use((incoming, next) => {
+            incoming.reply('Hi');
+            incoming.reply('There');
+            next();
+        });
+
+        bot.outgoing((outgoing, next) => {
+            outgoing.body += 'foo';
+            next();
+        });
+
+        bot.outgoing((outgoing, next) => {
+            outgoing.body += 'bar';
+            next();
+        });
+
+        messageChecker = (err, body, cb) => {
+            assert.equal(body.messages[0].body, 'Hifoobar');
+            assert.equal(body.messages[1].body, 'Therefoobar');
+            done();
+        };
+
+        request(bot.incoming())
+            .post('/incoming')
+            .send({
+                messages: [{
+                    body: 'Testfoobar',
                     type: 'text',
                     from: 'testuser1'
                 }]
